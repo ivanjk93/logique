@@ -7,12 +7,12 @@ import { RouterLink, RouterView } from 'vue-router'
         <div class="container-fluid">
             <div class="navbar-header">
                 <div class="row">
-                    <div class="col-xs-6 col-md-6">
+                    <div class="col-xs-6 col-md-6 col-lg-6">
                         <router-link to="/">
                             <img src="../assets/ituneslogo.png" class="img-filter" alt="logo" width="100">
                         </router-link>
                     </div>
-                    <div class="col-xs-6 col-md-6 text-right right-navbar">
+                    <div class="col-xs-6 col-md-6 col-lg-6 text-right right-navbar">
                         <i id="myBtn" class="bi bi-search" @click="openModal()"></i>
                         <!-- The Modal -->
                         <div :id="'myModal'" class="modal">
@@ -76,8 +76,9 @@ export default {
     },
     methods: {
         getValidation() {
-            if(this.$route.hash !== '') {
-                this.getListMusic(this.$route.hash)
+            if(localStorage.getItem('stateSearch') !== null) {
+                this.getListMusic(localStorage.getItem('stateSearch'))
+                localStorage.removeItem('stateSearch')
             } else {
                 this.getListMusic('all')
             }

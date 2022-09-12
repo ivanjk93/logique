@@ -33,8 +33,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <script>
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 export default {
+  components: {
+    useRouter,
+  },
   data() {
     return {
       search: ''
@@ -73,7 +77,8 @@ export default {
       axios.get('https://itunes.apple.com/search?term='+$name)
       .then((response) => {
           // console.log(response.data)
-          this.$router.push({path: '/main', name: 'main', hash: '/'+$name})
+          this.$router.push({ name: 'main', params: {name: $name} })
+          localStorage.setItem('stateSearch', $name)
       }).catch((errors) => {
           console.log(errors)
       })
